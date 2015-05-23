@@ -1,0 +1,8 @@
+
+
+$GYP_PATH ffmpeg.gyp --depth=. -f make-linux -Dtarget_arch=x64 -DOS=linux -Dos_posix=1 -Dmsan=0 -Dclang=0 -Duse_system_yasm=1 -Dbuildtype=Debug --no-parallel  --generator-output=./build.linux64/
+
+
+cd build.linux64
+make V=1 -j 5
+cd ..

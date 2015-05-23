@@ -1,0 +1,1 @@
+#define FFMPEG_VERSION "N2.6.1 2015-03-16 Commit:b2c9cd36d34c4157af10342ad3476dd9260bbefe"
