@@ -49,6 +49,7 @@
 							},
 							'VCLinkerTool': {
 							  'LinkTimeCodeGeneration': '0',
+							  'GenerateDebugInformation': 'true',
 							},
 							
 							'VCLibrarianTool': {
