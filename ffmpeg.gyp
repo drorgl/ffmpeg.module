@@ -110,7 +110,7 @@
 			[ 'OS in "win linux" and target_arch=="x64"', {
 				'defines':[
 					'ARCH_X86_64=1',
-					'ARCH_X86_32=1',
+					'ARCH_X86_32=0',
 				],
 			}],
 			['OS == "win"',{
@@ -141,6 +141,7 @@
 				],
 			'cflags':[
 				'-std=gnu99',
+				'-Wno-traditional',
 				#'-include stdint.h',
 			],
 			'conditions': [
@@ -163,9 +164,13 @@
 				'-marm',
 				'-march=armv7-a',
 			],
-		  }],
+		}],
 	  
-		  
+		['use_gpl_components == 1',{
+			'defines':[
+				'ENABLE_GPL=1',
+			],
+		}],
 		  
 		  
 		],
@@ -225,9 +230,6 @@
 			],
 			'conditions':[
 				['use_gpl_components == 1',{
-					'defines':[
-						'ENABLE_GPL',
-					],
 					'dependencies':[
 						'../x264.module/x264.gyp:x264',
 					],
@@ -460,17 +462,13 @@
 						'yasm_compile.gypi',
 					 ],
 					 'variables':{
-						'yasm_flags':[
+						'yasm_paths':[
 							'-I','ffmpeg_src',
+							'-I','config/<(OS)/<(target_arch)',
+						],
+						'yasm_flags':[
+							'-Pconfig.asm',
 							'-DPIC=1',
-							'-DHAVE_CPUNOP=1',
-							'-DHAVE_MMXEXT_EXTERNAL=0',
-							'-DHAVE_SSE2_EXTERNAL=0',
-							'-DHAVE_SSE2_EXTERNAL=0',
-							'-DHAVE_SSSE3_EXTERNAL=0',
-							'-DHAVE_AVX_EXTERNAL=0',
-							'-DHAVE_ALIGNED_STACK=0',
-							'-DHAVE_AVX2_EXTERNAL=0',
 						 ],
 					 },
 				}],
@@ -712,15 +710,9 @@
 					 'variables':{
 						'yasm_flags':[
 							'-I','ffmpeg_src',
+							'-I','config/<(OS)/<(target_arch)',
+							'-Pconfig.asm',
 							'-DPIC=1',
-							'-DHAVE_CPUNOP=1',
-							'-DHAVE_MMXEXT_EXTERNAL=0',
-							'-DHAVE_SSE2_EXTERNAL=0',
-							'-DHAVE_SSE2_EXTERNAL=0',
-							'-DHAVE_SSSE3_EXTERNAL=0',
-							'-DHAVE_AVX_EXTERNAL=0',
-							'-DHAVE_ALIGNED_STACK=0',
-							'-DHAVE_AVX2_EXTERNAL=0',
 						 ],
 					 },
 				}],
@@ -971,15 +963,9 @@
 					 'variables':{
 						'yasm_flags':[
 							'-I','ffmpeg_src',
+							'-I','config/<(OS)/<(target_arch)',
+							'-Pconfig.asm',
 							'-DPIC=1',
-							'-DHAVE_CPUNOP=1',
-							'-DHAVE_MMXEXT_EXTERNAL=0',
-							'-DHAVE_SSE2_EXTERNAL=0',
-							'-DHAVE_SSE2_EXTERNAL=0',
-							'-DHAVE_SSSE3_EXTERNAL=0',
-							'-DHAVE_AVX_EXTERNAL=0',
-							'-DHAVE_ALIGNED_STACK=0',
-							'-DHAVE_AVX2_EXTERNAL=0',
 						 ],
 					 },
 				}],
@@ -1269,17 +1255,9 @@
 					 'variables':{
 						'yasm_flags':[
 							'-I','ffmpeg_src',
+							'-I','config/<(OS)/<(target_arch)',
+							'-Pconfig.asm',
 							'-DPIC=1',
-							'-DHAVE_CPUNOP=1',
-							'-DHAVE_MMXEXT_EXTERNAL=0',
-							'-DHAVE_SSE2_EXTERNAL=0',
-							'-DHAVE_SSE2_EXTERNAL=0',
-							'-DHAVE_SSSE3_EXTERNAL=0',
-							'-DHAVE_AVX_EXTERNAL=0',
-							'-DHAVE_ALIGNED_STACK=0',
-							'-DHAVE_AVX2_EXTERNAL=0',
-							'-DHAVE_FMA3_EXTERNAL=0',
-							'-DHAVE_XOP_EXTERNAL=0',
 						 ],
 					 },
 				}],
@@ -1774,9 +1752,6 @@
 			],
 			'conditions':[
 				['use_gpl_components == 1',{
-					'defines':[
-						'ENABLE_GPL',
-					],
 					'sources':[
 						'ffmpeg_src/libavfilter/vf_blackframe.c',
 						'ffmpeg_src/libavfilter/f_ebur128.c',
@@ -1809,30 +1784,45 @@
 						'ffmpeg_src/libavfilter/vf_uspp.c',
 					],
 				}],
+				
+				['target_arch in "ia32 x64"',{
+					'includes':[
+						'yasm_compile.gypi',
+					 ],
+					 'variables':{
+						'yasm_flags':[
+							'-I','ffmpeg_src',
+							'-I','config/<(OS)/<(target_arch)',
+							'-Pconfig.asm',
+							'-DPIC=1',
+						 ],
+					 },
+				}],
+				
 				['target_arch in "ia32 x64"',{
 					'sources':[
 						'ffmpeg_src/libavfilter/x86/af_volume.asm',
 						'ffmpeg_src/libavfilter/x86/af_volume_init.c',
+						'ffmpeg_src/libavfilter/x86/vf_fspp.asm',
+						'ffmpeg_src/libavfilter/x86/vf_fspp_init.c',
 						'ffmpeg_src/libavfilter/x86/vf_gradfun.asm',
 						'ffmpeg_src/libavfilter/x86/vf_gradfun_init.c',
 						'ffmpeg_src/libavfilter/x86/vf_hqdn3d.asm',
 						'ffmpeg_src/libavfilter/x86/vf_hqdn3d_init.c',
+						'ffmpeg_src/libavfilter/x86/vf_idet.asm',
+						'ffmpeg_src/libavfilter/x86/vf_idet_init.c',
+						'ffmpeg_src/libavfilter/x86/vf_interlace.asm',
+						'ffmpeg_src/libavfilter/x86/vf_interlace_init.c',
+						'ffmpeg_src/libavfilter/x86/vf_noise.c',
+						'ffmpeg_src/libavfilter/x86/vf_pp7.asm',
+						'ffmpeg_src/libavfilter/x86/vf_pp7_init.c',
 						'ffmpeg_src/libavfilter/x86/vf_pullup.asm',
 						'ffmpeg_src/libavfilter/x86/vf_pullup_init.c',
-						
+						'ffmpeg_src/libavfilter/x86/vf_tinterlace_init.c',
 						'ffmpeg_src/libavfilter/x86/vf_yadif.asm',
 						'ffmpeg_src/libavfilter/x86/vf_yadif_init.c',
 						'ffmpeg_src/libavfilter/x86/yadif-10.asm',
 						'ffmpeg_src/libavfilter/x86/yadif-16.asm',
-						
-						'ffmpeg_src/libavfilter/x86/vf_fspp_init.c',
-						'ffmpeg_src/libavfilter/x86/vf_idet_init.c',
-						'ffmpeg_src/libavfilter/x86/vf_noise.c',
-						'ffmpeg_src/libavfilter/x86/vf_pp7_init.c',
-						'ffmpeg_src/libavfilter/x86/vf_interlace_init.c',
-						'ffmpeg_src/libavfilter/x86/vf_tinterlace_init.c',
-						
-						
 					],
 					
 				}],
@@ -2380,6 +2370,20 @@
 			],
 			'conditions':[
 				['target_arch in "ia32 x64"',{
+					'includes':[
+						'yasm_compile.gypi',
+					 ],
+					 'variables':{
+						'yasm_flags':[
+							'-I','ffmpeg_src',
+							'-I','config/<(OS)/<(target_arch)',
+							'-Pconfig.asm',
+							'-DPIC=1',
+						 ],
+					 },
+				}],
+			
+				['target_arch in "ia32 x64"',{
 					'sources':[
 						'ffmpeg_src/libavresample/x86/audio_convert.asm',
 						'ffmpeg_src/libavresample/x86/audio_convert_init.c',
@@ -2389,6 +2393,15 @@
 						'ffmpeg_src/libavresample/x86/dither_init.c',
 						'ffmpeg_src/libavresample/x86/util.asm',
 						#'ffmpeg_src/libavresample/x86/w64xmmtest.c',
+					],
+				}],
+				['target_arch == "arm"',{
+					'sources':[
+						'ffmpeg_src/libavresample/arm/asm-offsets.h',
+						'ffmpeg_src/libavresample/arm/audio_convert_init.c',
+						'ffmpeg_src/libavresample/arm/audio_convert_neon.S',
+						'ffmpeg_src/libavresample/arm/resample_init.c',
+						'ffmpeg_src/libavresample/arm/resample_neon.S',				
 					],
 				}],
 			],
@@ -2506,16 +2519,9 @@
 					 'variables':{
 						'yasm_flags':[
 							'-I','ffmpeg_src',
+							'-I','config/<(OS)/<(target_arch)',
+							'-Pconfig.asm',
 							'-DPIC=1',
-							'-DHAVE_CPUNOP=1',
-							'-DHAVE_MMXEXT_EXTERNAL=0',
-							'-DHAVE_SSE2_EXTERNAL=0',
-							'-DHAVE_SSE2_EXTERNAL=0',
-							'-DHAVE_SSSE3_EXTERNAL=0',
-							'-DHAVE_AVX_EXTERNAL=0',
-							'-DHAVE_ALIGNED_STACK=0',
-							'-DHAVE_FMA3_EXTERNAL=0',
-							'-DHAVE_AVX2_EXTERNAL=0',
 						 ],
 					 },
 				}],
@@ -2624,13 +2630,28 @@
 						#'ffmpeg_src/libswresample/arm/neontest.c',
 					],
 				}],
+				
+				['target_arch in "ia32 x64"',{
+					'includes':[
+						'yasm_compile.gypi',
+					 ],
+					 'variables':{
+						'yasm_flags':[
+							'-I','ffmpeg_src',
+							'-I','config/<(OS)/<(target_arch)',
+							'-Pconfig.asm',
+							'-DPIC=1',
+						 ],
+					},
+				}],
+				
 				['target_arch in "ia32 x64"',{
 					'sources':[
-						#'ffmpeg_src/libswresample/x86/audio_convert.asm',
-						#'ffmpeg_src/libswresample/x86/rematrix.asm',
-						#'ffmpeg_src/libswresample/x86/resample_mmx.h',
-						#'ffmpeg_src/libswresample/x86/swresample_x86.c',
-						#'ffmpeg_src/libswresample/x86/w64xmmtest.c',
+						'ffmpeg_src/libswresample/x86/audio_convert.asm',
+						'ffmpeg_src/libswresample/x86/audio_convert_init.c',
+						'ffmpeg_src/libswresample/x86/rematrix.asm',
+						'ffmpeg_src/libswresample/x86/rematrix_init.c',
+						'ffmpeg_src/libswresample/x86/resample.asm',
 						'ffmpeg_src/libswresample/x86/resample_init.c',
 					],
 				}],
@@ -2703,24 +2724,18 @@
 						'yasm_compile.gypi',
 					 ],
 					 'variables':{
-						'yasm_flags': [
-							'-I',"ffmpeg_src",
+						'yasm_flags':[
+							'-I','ffmpeg_src',
+							'-I','config/<(OS)/<(target_arch)',
+							'-Pconfig.asm',
 							'-DPIC=1',
-							'-DHAVE_CPUNOP=1',
-							'-DHAVE_MMXEXT_EXTERNAL=0',
-							'-DHAVE_SSE2_EXTERNAL=0',
-							'-DHAVE_SSE2_EXTERNAL=0',
-							'-DHAVE_SSSE3_EXTERNAL=0',
-							'-DHAVE_AVX_EXTERNAL=0',
-							'-DHAVE_ALIGNED_STACK=0',
-							'-DHAVE_AVX2_EXTERNAL=0',
-						],
+						 ],
 					},
 				}],
 
 				['target_arch in "ia32 x64"',{
 					'sources':[
-						#'ffmpeg_src/libswscale/x86/input.asm',
+						'ffmpeg_src/libswscale/x86/input.asm',
 						'ffmpeg_src/libswscale/x86/output.asm',
 						'ffmpeg_src/libswscale/x86/rgb2rgb.c',
 						'ffmpeg_src/libswscale/x86/scale.asm',

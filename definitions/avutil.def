@@ -430,3 +430,4 @@ EXPORTS
     avutil_configuration
     avutil_license
     avutil_version
+	avpriv_emms_yasm
