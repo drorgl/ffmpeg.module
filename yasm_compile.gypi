@@ -16,9 +16,6 @@
 #   'ultra_optimized_awesome.asm',
 # ],
 # 'variables': {
-#	'yasm_paths': [
-#		'-I' 'include',
-#	],
 #   'yasm_flags': [
 #     '-I', 'assembly_include',
 #   ],
@@ -77,7 +74,7 @@
 	  		'yasm_flags' : [
 	  			'-Xvc',
 	  			'-s',
-	  			'-g', 'cv8',
+	  			'-gcv8',
 	  			'-DPREFIX',
 	  			'--oformat=win32',
 	  		],
@@ -87,7 +84,7 @@
 	  		'yasm_flags' : [
 	  			'-Xvc',
 	  			'-s',
-	  			'-g', 'cv8',
+	  			'-gcv8',
 	  			'-DPREFIX',
 	  			'--oformat=win64',
 	  		],
