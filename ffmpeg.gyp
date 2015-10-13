@@ -1242,6 +1242,7 @@
 						'ffmpeg_src/libavcodec/arm/vp8dsp_init_neon.c',
 						'ffmpeg_src/libavcodec/arm/vp8dsp_neon.S',
 						'ffmpeg_src/libavcodec/arm/vp8_armv6.S',
+						'ffmpeg_src/libavcodec/neon/mpegvideo.c',
 						
 						
 						

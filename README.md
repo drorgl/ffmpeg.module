@@ -46,6 +46,8 @@ compiling 32 bit linux on 64 bit linux:
 sudo apt-get install lib32stdc++6-4.8-dbg
 ```
 
+Requires GCC 4.9 (NDK 10) for android/arm build for performance purposes.
+
 #### Dependencies
 
 ##### zlib
