@@ -85,7 +85,7 @@
 	  			'-Xvc',
 	  			'-s',
 	  			'-gcv8',
-	  			'-DPREFIX',
+	  			#'-DPREFIX',
 	  			'--oformat=win64',
 	  		],
 	  	}

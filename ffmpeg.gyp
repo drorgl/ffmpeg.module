@@ -50,13 +50,25 @@
 							'VCLinkerTool': {
 							  'LinkTimeCodeGeneration': '0',
 							  'GenerateDebugInformation': 'true',
+							  
+								'conditions':[
+									['target_arch=="x64"', {
+										'TargetMachine' : 17 # /MACHINE:X64
+									}],
+									
+								],
+							  
 							},
 							
 							'VCLibrarianTool': {
 								'AdditionalOptions!': ['/LTCG'],
 							 },
+							
 						}
-				}]
+				}],
+				['target_arch=="x64"', {
+					'msvs_configuration_platform': 'x64',
+				}],
 				]
 			},
 			'Release' : {
@@ -71,13 +83,24 @@
 							},
 							'VCLinkerTool': {
 							  'LinkTimeCodeGeneration': '0',
+							  
+								'conditions':[
+									['target_arch=="x64"', {
+										'TargetMachine' : 17 # /MACHINE:X64
+									}],
+								],
+							  
 							},
 							
 							'VCLibrarianTool': {
 								'AdditionalOptions!': ['/LTCG'],
 							 },
+							
 						}
-				}]
+					}],
+					['target_arch=="x64"', {
+						'msvs_configuration_platform': 'x64',
+					}],
 				]
 			},
 		},
@@ -2527,7 +2550,7 @@
 					 },
 				}],
 
-				['OS == "win"',{
+				['OS == "win" and MSVS_VERSION == "2013"',{
 					 
 					 'sources':[
 						'compat/msvcrt/snprintf.c'
