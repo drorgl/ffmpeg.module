@@ -45,6 +45,8 @@
 							# object files to same directory... even if they have the same name!
 							'VCCLCompilerTool': {
 							  'WholeProgramOptimization' : 'false',
+							  'BasicRuntimeChecks' : '0',
+							  'Optimization' : '1', # /O1
 							  'AdditionalOptions': ['/GL-','/w'], #['/wd4244' ,'/wd4018','/wd4133' ,'/wd4090'] #GL- was added because the forced optimization coming from node-gyp is disturbing the weird coding style from ffmpeg.
 							},
 							'VCLinkerTool': {

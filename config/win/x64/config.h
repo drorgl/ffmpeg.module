@@ -45,7 +45,7 @@
 #define HAVE_NEON 0
 #define HAVE_VFP 0
 #define HAVE_VFPV3 0
-#define HAVE_SETEND 0
+//#define HAVE_SETEND 0
 #define HAVE_ALTIVEC 0
 #define HAVE_DCBZL 1
 #define HAVE_LDBRX 1
