@@ -188,6 +188,9 @@
 			'cflags':[
 				'-marm',
 				'-march=armv7-a',
+				'-mfpu=neon',
+				'-mfloat-abi=softfp',
+				'-funsafe-math-optimizations',
 			],
 		}],
 	  
