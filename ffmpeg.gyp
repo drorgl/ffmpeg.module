@@ -3,7 +3,7 @@
 		'library' : 'static_library',
 		'primary_libraries' : 'shared_library',
 		#'primary_libraries' : 'static_library',
-		#'use_system_yasm' : '0',
+		'use_system_yasm%' : "<!(node -e \"try{var x = require('child_process').spawnSync('yasm',[]);if (x.error){console.log(0);}else{console.log(1);}}catch(e){console.log(0)}\")",
 		'use_gpl_components' : '1',
 		 'yasm_output_path': '<(INTERMEDIATE_DIR)',
 
