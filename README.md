@@ -8,7 +8,7 @@ Expose FFMPEG libraries through gyp, splitting huge modules like libavcodec to m
 * windows specific fix to snprintf in compat/msvcrt/snprinf.c (might not be needed)
 * android specific fix in libavdevice/v4l2.c and v4l2-common.h (might not be needed)
 
-requires vsyasm assembler
+requires vsyasm assembler for windows build or yasm for linux
 
 #### known issues:
 * HAVE_STRERROR_R is not set in configs, need to check why

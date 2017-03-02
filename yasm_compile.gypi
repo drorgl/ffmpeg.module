@@ -30,7 +30,7 @@
 		'yasm_flags' : [],
 		
 		'conditions' : [
-			['use_system_yasm==0', {
+			['use_system_yasm==0 and OS=="win"', {
 					'yasm_path' : 'vsyasm<(EXECUTABLE_SUFFIX)',
 				}, {
 					'yasm_path' : '<!(which yasm)',

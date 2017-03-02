@@ -167,6 +167,7 @@
 			'cflags':[
 				'-std=gnu99',
 				'-Wno-traditional',
+				'-Wno-sign-compare',
 				#'-include stdint.h',
 			],
 			'conditions': [
