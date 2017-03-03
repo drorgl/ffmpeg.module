@@ -184,7 +184,7 @@
 			  }],
 			],
 		}],
-		['OS=="android" and target_arch=="arm"',{
+		['OS in "android linux" and target_arch=="arm"',{
 			#'include_dirs':[
 			#	'config/android'
 			#],
@@ -195,7 +195,7 @@
 				'-marm',
 				'-march=armv7-a',
 				'-mfpu=neon',
-				'-mfloat-abi=softfp',
+				'-mfloat-abi=hard',
 				'-funsafe-math-optimizations',
 			],
 		}],
