@@ -138,6 +138,11 @@
 					'ARCH_X86_32=0',
 				],
 			}],
+			[ 'OS in "linux android" and target_arch=="arm"',{
+				'defines':[
+					'_DEFAULT_SOURCE'
+				],
+			}],
 			['OS == "win"',{
 				'defines':[
 					'inline=__inline',
