@@ -173,6 +173,12 @@
 				'-std=gnu99',
 				'-Wno-traditional',
 				'-Wno-sign-compare',
+				'-Wno-switch',
+				'-Wno-missing-field-initializers',
+				'-Wno-parentheses',
+				'-Wno-pointer-sign',
+				'-Wno-unused-function',
+				'-Wno-old-style-declaration'
 				#'-include stdint.h',
 			],
 			'conditions': [
