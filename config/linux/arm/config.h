@@ -144,14 +144,8 @@
 #define HAVE_ATOMICS_WIN32 0
 #define HAVE_ATOMIC_CAS_PTR 0
 
-#if __GNUC__ > 4 || \
-   (__GNUC__ == 4 && (__GNUC_MINOR__ > 7 || \
-                     (__GNUC_MINOR__ == 7 && \
-                      __GNUC_PATCHLEVEL__ > 0))
-#define HAVE_ATOMIC_COMPARE_EXCHANGE 1
-#else
+
 #define HAVE_ATOMIC_COMPARE_EXCHANGE 0
-#endif 
 
 #define HAVE_AS_DN_DIRECTIVE 1
 #define HAVE_MACHINE_RW_BARRIER 0
