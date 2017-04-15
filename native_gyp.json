@@ -1,0 +1,74 @@
+{
+    "dependencies": {
+        "alsa-lib": {
+            "packages": [
+                "libasound2-dev"
+            ],
+            "pkgconfig": {
+                "alsa": "^1.1"
+            },
+            "headers": {},
+            "libraries": {},
+            "sources": [
+                "https://github.com/drorgl/alsa-lib.module.git#master@alsa-lib.gyp:alsa-lib"
+            ],
+            "archived_sources": [
+                "https://github.com/drorgl/alsa-lib.module/releases/download/v1.0.28/alsa-lib.module.v1.0.28.7z@alsa-lib.gyp:alsa-lib"
+            ]
+        },
+        "lame": {
+            "packages": [
+                "libmp3lame-dev"
+            ],
+            "pkgconfig": {},
+            "headers": {},
+            "libraries": {},
+            "sources": [
+                "https://github.com/drorgl/lame.module.git@lame.gyp:libmp3lame"
+            ],
+            "archived_sources": [
+                "https://github.com/drorgl/lame.module/releases/download/v3.99.5/lame.module.v3.99.5.7z@lame.gyp:libmp3lame"
+            ]
+        },
+        "vpx": {
+            "packages": [
+                "libvpx-dev"
+            ],
+            "pkgconfig": {
+                "vpx": "^1.5"
+            },
+            "headers": {},
+            "libraries": {},
+            "sources": [
+                "https://github.com/drorgl/libvpx.module.git@libvpx.gyp:libvpx"
+            ],
+             "archived_sources": [
+                 "https://github.com/drorgl/libvpx.module/releases/download/v1.7.0/libvpx.module.v1.7.0.7z@libvpx.gyp:libvpx"
+             ]
+        },
+        "x264": {
+            "packages": [
+                "libx264-dev"
+            ],
+            "pkgconfig": {
+                "x264": "^0.148"
+            },
+            "headers": {},
+            "libraries": {},
+            "sources": [
+                "https://github.com/drorgl/x264.module.git@x264.gyp:x264"
+            ],
+            "archived_sources": [
+                "https://github.com/drorgl/x264.module/releases/download/v0.146.2538/x264.module.v0.146.2538.7z@x264.gyp:x264"
+            ]
+        },
+        "zlib": {
+            "sources": [
+                "https://github.com/drorgl/zlib.module.git@zlib.gyp:zlib"
+            ],
+			"archived_sources": [
+                "https://github.com/drorgl/zlib.module/releases/download/v1.2.8/zlib.module.v1.2.8.7z@zlib.gyp:zlib"
+            ]
+        }
+    }
+}

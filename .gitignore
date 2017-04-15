@@ -4,3 +4,6 @@
 
 /build.android/
 /*.module/
+/node_modules
+/.github-authentication-cache
+/native_configuration.json

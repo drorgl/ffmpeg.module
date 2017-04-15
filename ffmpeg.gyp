@@ -30,7 +30,7 @@
 			'VCCLCompilerTool': {
 				'ForcedIncludeFiles' : ['stdint.h'],
 			  'ObjectFile': '$(IntDir)/%(RelativeDir)/',
-			  'AdditionalOptions': ['/GL-','/w'], #['/wd4244' ,'/wd4018','/wd4133' ,'/wd4090'] #GL- was added because the forced optimization coming from node-gyp is disturbing the weird coding style from ffmpeg.
+			  'AdditionalOptions': ['/GL-'], #['/wd4244' ,'/wd4018','/wd4133' ,'/wd4090'] #GL- was added because the forced optimization coming from node-gyp is disturbing the weird coding style from ffmpeg.
 			  'WholeProgramOptimization' : 'false',
 			},
 			
@@ -47,7 +47,7 @@
 							  'WholeProgramOptimization' : 'false',
 							  'BasicRuntimeChecks' : '0',
 							  'Optimization' : '1', # /O1
-							  'AdditionalOptions': ['/GL-','/w'], #['/wd4244' ,'/wd4018','/wd4133' ,'/wd4090'] #GL- was added because the forced optimization coming from node-gyp is disturbing the weird coding style from ffmpeg.
+							  'AdditionalOptions': ['/GL-'], #['/wd4244' ,'/wd4018','/wd4133' ,'/wd4090'] #GL- was added because the forced optimization coming from node-gyp is disturbing the weird coding style from ffmpeg.
 							},
 							'VCLinkerTool': {
 							  'LinkTimeCodeGeneration': '0',
@@ -81,7 +81,7 @@
 							# object files to same directory... even if they have the same name!
 							'VCCLCompilerTool': {
 							  'WholeProgramOptimization' : 'false',
-							  'AdditionalOptions': ['/GL-','/w'], #['/wd4244' ,'/wd4018','/wd4133' ,'/wd4090'] #GL- was added because the forced optimization coming from node-gyp is disturbing the weird coding style from ffmpeg.
+							  'AdditionalOptions': ['/GL-'], #['/wd4244' ,'/wd4018','/wd4133' ,'/wd4090'] #GL- was added because the forced optimization coming from node-gyp is disturbing the weird coding style from ffmpeg.
 							},
 							'VCLinkerTool': {
 							  'LinkTimeCodeGeneration': '0',
@@ -266,13 +266,31 @@
 				'avcodec_p4',
 				'avutil',
 				'swresample',
-				'../libvpx.module/libvpx.gyp:libvpx',
+				'<!@(nnbu-dependency --dependency vpx)',
+				#'../libvpx.module/libvpx.gyp:libvpx',
 			],
+			'include_dirs':[
+				'<!@(nnbu-dependency --headers vpx)',
+			],
+			'link_settings':{
+					'libraries':[
+						'<!@(nnbu-dependency --lib-fix --libs vpx)',
+					],
+			 },
 			'conditions':[
 				['use_gpl_components == 1',{
 					'dependencies':[
-						'../x264.module/x264.gyp:x264',
+						'<!@(nnbu-dependency --dependency x264)',
 					],
+					'include_dirs':[
+						'<!@(nnbu-dependency --headers x264)',
+					],
+					'link_settings':{
+							'libraries':[
+								'<!@(nnbu-dependency --lib-fix --libs x264)',
+							],
+					},
+					
 					'sources':[
 						'ffmpeg_src/libavcodec/libx264.c',
 					],
@@ -513,10 +531,18 @@
 					 },
 				}],
 				['OS == "win"',{
-					
 					'dependencies':[
-						'../zlib.module/zlib.gyp:zlib',
-					]
+						'<!@(nnbu-dependency --dependency zlib)',
+					],
+					'include_dirs':[
+						'<!@(nnbu-dependency --headers zlib)',
+					],
+					'link_settings':{
+							'libraries':[
+								'<!@(nnbu-dependency --lib-fix --libs zlib)',
+							],
+					},
+					
 				}],
 			]
 		},
@@ -525,14 +551,21 @@
 			'target_name': 'avcodec_p2',
 			'type':'<(library)',
 			'dependencies':[		
-				'../lame.module/lame.gyp:libmp3lame',
+				'<!@(nnbu-dependency --dependency lame)',
+				#'../lame.module/lame.gyp:libmp3lame',
 				'avutil',
 			],
 			'defines':[],
 			'include_dirs':[
 				'ffmpeg_src',
 				'ffmpeg_src/libavcodec',
+				'<!@(nnbu-dependency --headers lame)',
 			],
+			'link_settings':{
+					'libraries':[
+						'<!@(nnbu-dependency --lib-fix --libs lame)',
+					],
+			},
 			'direct_dependent_settings': {
 				'include_dirs': [
 					'ffmpeg_src/libavcodec',
@@ -761,8 +794,16 @@
 					
 					
 					'dependencies':[
-						'../zlib.module/zlib.gyp:zlib',
-					]
+						'<!@(nnbu-dependency --dependency zlib)',
+					],
+					'include_dirs':[
+						'<!@(nnbu-dependency --headers zlib)',
+					],
+					'link_settings':{
+							'libraries':[
+								'<!@(nnbu-dependency --lib-fix --libs zlib)',
+							],
+					},
 				}],
 			]
 		},
@@ -771,19 +812,26 @@
 			'target_name': 'avcodec_p3',
 			'type':'<(library)',
 			'dependencies':[
-				'../lame.module/lame.gyp:libmp3lame',
+				#'../lame.module/lame.gyp:libmp3lame',
+				'<!@(nnbu-dependency --dependency lame)',
 				'avutil',
 			],
 			'defines':[],
 			'include_dirs':[
 				'ffmpeg_src',
 				'ffmpeg_src/libavcodec',
+				'<!@(nnbu-dependency --headers lame)',
 			],
 			'direct_dependent_settings': {
 				'include_dirs': [
 					'ffmpeg_src/libavcodec',
 				],
 			 },
+			 'link_settings':{
+					'libraries':[
+						'<!@(nnbu-dependency --lib-fix --libs lame)',
+					],
+			},
 			 
 			 
 
@@ -1013,8 +1061,16 @@
 				['OS == "win"',{
 					 
 					'dependencies':[
-						'../zlib.module/zlib.gyp:zlib',
-					]
+						'<!@(nnbu-dependency --dependency zlib)',
+					],
+					'include_dirs':[
+						'<!@(nnbu-dependency --headers zlib)',
+					],
+					'link_settings':{
+						'libraries':[
+							'<!@(nnbu-dependency --lib-fix --libs zlib)',
+						],
+					},
 				}],
 			]
 		},
@@ -1024,14 +1080,18 @@
 			'target_name': 'avcodec_p4',
 			'type':'<(library)',
 			'dependencies':[
-				'../lame.module/lame.gyp:libmp3lame',
-				'../libvpx.module/libvpx.gyp:libvpx',
+				#'../lame.module/lame.gyp:libmp3lame',
+				'<!@(nnbu-dependency --dependency lame)',
+				'<!@(nnbu-dependency --dependency vpx)',
+				#'../libvpx.module/libvpx.gyp:libvpx',
 				'avutil',
 			],
 			'defines':[],
 			'include_dirs':[
 				'ffmpeg_src',
 				'ffmpeg_src/libavcodec',
+				'<!@(nnbu-dependency --headers lame)',
+				'<!@(nnbu-dependency --headers vpx)',
 			],
 			'direct_dependent_settings': {
 				'include_dirs': [
@@ -1040,7 +1100,8 @@
 			 },
 			 
 			'export_dependent_settings':[
-				'../libvpx.module/libvpx.gyp:libvpx',
+				#'../libvpx.module/libvpx.gyp:libvpx',
+				'<!@(nnbu-dependency --dependency vpx)',
 			 ],
 
 			
@@ -1475,8 +1536,16 @@
 				}],
 				['OS == "win"',{
 					'dependencies':[
-						'../zlib.module/zlib.gyp:zlib',
-					]
+						'<!@(nnbu-dependency --dependency zlib)',
+					],
+					'include_dirs':[
+						'<!@(nnbu-dependency --headers zlib)',
+					],
+					'link_settings':{
+						'libraries':[
+							'<!@(nnbu-dependency --lib-fix --libs zlib)',
+						],
+					},
 				}],
 			]
 		}
@@ -1532,7 +1601,8 @@
 				}],
 				['OS in "linux android"',{
 					'dependencies':[
-						'../alsa-lib.module/alsa-lib.gyp:alsa-lib',
+						'<!@(nnbu-dependency --dependency alsa-lib)',
+						#'../alsa-lib.module/alsa-lib.gyp:alsa-lib',
 					],
 								
 					'sources':[

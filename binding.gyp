@@ -1,0 +1,3 @@
+{
+    "includes":["ffmpeg.gyp"]
+}
